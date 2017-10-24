@@ -1,6 +1,5 @@
 package dao;
 
-import bl.MyException;
 import entity.Address;
 
 import java.util.List;
@@ -8,18 +7,18 @@ import java.util.List;
 public interface AddressDAO {
 
     //create
-    void add(Address address) throws MyException;
+    void add(Address address) throws DaoException;
 
     //read
-    List<Address> getAll() throws MyException;
+    List<Address> getAll() throws DaoException;
 
-    Address getById(Long id) throws MyException;
+    Address getById(Long id) throws DaoException;
 
     //update
-    void update(Address address) throws MyException;
+    void update(Address address) throws DaoException;
 
     //delete
 
-    void remove(Address address) throws MyException;
+    void remove(Address address) throws DaoException;
 
 }

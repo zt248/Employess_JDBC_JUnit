@@ -1,7 +1,7 @@
 package service;
 
-import bl.MyException;
-import bl.Utill;
+import dao.DaoException;
+import dao.Utill;
 import dao.AddressDAO;
 import entity.Address;
 
@@ -10,68 +10,68 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AddressService extends Utill implements AddressDAO {
+public class AddressServiceDao extends Utill implements AddressDAO {
 
+    private Connection connection = getConnection();
 
     private PreparedStatement psAdd = null;
     private PreparedStatement psGetById = null;
     private PreparedStatement psUpdate = null;
     private PreparedStatement psRemove = null;
 
-    public AddressService() throws MyException {
+    public AddressServiceDao() throws DaoException {
     }
 
 
-    public PreparedStatement preparedStatementAdd(String sql) {
+
+    private PreparedStatement preparedStatementAdd(String sql) throws DaoException {
 
         try {
             if (psAdd == null) {
                 psAdd = connection.prepareStatement(sql);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DaoException(e);
         }
         return psAdd;
     }
 
 
-    private PreparedStatement preparedStatementGetById(String sql) {
+    private PreparedStatement preparedStatementGetById(String sql) throws DaoException {
         try {
             if (psGetById == null) {
                 psGetById = connection.prepareStatement(sql);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DaoException(e);
         }
         return psGetById;
     }
 
-    private PreparedStatement preparedStatementUpdate(String sql) {
+    private PreparedStatement preparedStatementUpdate(String sql) throws DaoException {
         try {
             if (psUpdate == null) {
                 psUpdate = connection.prepareStatement(sql);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DaoException(e);
         }
         return psUpdate;
     }
 
-    private PreparedStatement preparedStatementRemove(String sql) {
+    private PreparedStatement preparedStatementRemove(String sql) throws DaoException {
         try {
             if (psRemove == null) {
                 psRemove = connection.prepareStatement(sql);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DaoException(e);
         }
         return psRemove;
     }
 
 
-    Connection connection = getConnection();
-
-    public void add(Address address) throws MyException {
+    public void add(Address address) throws DaoException {
         String sql = "INSERT INTO ADDRESS (ID, COUNTRY, CITY, STREET, POST_CODE) VALUES (?,?,?,?,?);";
         try {
             preparedStatementAdd(sql);
@@ -83,11 +83,11 @@ public class AddressService extends Utill implements AddressDAO {
 
             psAdd.executeUpdate();
         } catch (Exception e) {
-            throw new MyException();
+            throw new DaoException(e);
         }
     }
 
-    public List<Address> getAll() throws MyException {
+    public List<Address> getAll() throws DaoException {
         List<Address> addressList = new ArrayList<Address>();
 
         String sql = "SELECT ID, COUNTRY, CITY, STREET, POST_CODE FROM ADDRESS";
@@ -104,17 +104,17 @@ public class AddressService extends Utill implements AddressDAO {
                 address.setCity(resultSet.getString("CITY"));
                 address.setStreet(resultSet.getString("STREET"));
                 address.setPostCode(resultSet.getString("POST_CODE"));
-
                 addressList.add(address);
             }
+            resultSet.close();
         } catch (Exception e) {
-            throw new MyException();
+            throw new DaoException(e);
         }
 
         return addressList;
     }
 
-    public Address getById(Long id) throws MyException {
+    public Address getById(Long id) throws DaoException {
         String sql = "SELECT ID, COUNTRY, CITY, STREET, POST_CODE FROM ADDRESS WHERE ID = ?";
 
         Address address = new Address();
@@ -129,15 +129,14 @@ public class AddressService extends Utill implements AddressDAO {
             address.setCity(resultSet.getString("CITY"));
             address.setStreet(resultSet.getString("STREET"));
             address.setPostCode(resultSet.getString("POST_CODE"));
-
-
+            resultSet.close();
         } catch (Exception e) {
-            throw new MyException();
+            throw new DaoException(e);
         }
         return address;
     }
 
-    public void update(Address address) throws MyException {
+    public void update(Address address) throws DaoException {
 
         String sql = "UPDATE ADDRESS SET COUNTRY=?, CITY=?, STREET=?, POST_CODE=? WHERE ID=?";
 
@@ -153,12 +152,12 @@ public class AddressService extends Utill implements AddressDAO {
             psUpdate.executeUpdate();
 
         } catch (Exception e) {
-            throw new MyException();
+            throw new DaoException(e);
         }
 
     }
 
-    public void remove(Address address) throws MyException {
+    public void remove(Address address) throws DaoException {
 
         String sql = "DELETE FROM ADDRESS WHERE ID=?";
 
@@ -169,30 +168,27 @@ public class AddressService extends Utill implements AddressDAO {
 
             psRemove.executeUpdate();
         } catch (Exception e) {
-            throw new MyException();
-
+            throw new DaoException(e);
         }
 
     }
 
 
-    public void close() throws MyException {
+    public void close() throws DaoException {
         try {
-
-
-        if (psAdd != null) {
-            psAdd.close();
-        } else if (psGetById != null) {
-            psGetById.close();
-        } else if (psUpdate != null) {
-            psUpdate.close();
-        } else if (psRemove != null) {
-            psRemove.close();
-        } else if (connection != null) {
-            connection.close();
-        }
-        }catch (Exception e){
-            throw new MyException();
+            if (psAdd != null) {
+                psAdd.close();
+            } else if (psGetById != null) {
+                psGetById.close();
+            } else if (psUpdate != null) {
+                psUpdate.close();
+            } else if (psRemove != null) {
+                psRemove.close();
+            } else if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception e) {
+            throw new DaoException(e);
         }
         System.out.println("Connection OFF");
     }

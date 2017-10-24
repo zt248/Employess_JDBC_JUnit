@@ -1,4 +1,4 @@
-package bl;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +11,7 @@ public class Utill {
     private static final String DB_PASSWORD = "root";
 
 
-    public Connection getConnection() throws MyException {
+    public Connection getConnection() throws DaoException {
         Connection connection = null;
 
         try {
@@ -22,7 +22,7 @@ public class Utill {
             e.printStackTrace();
             System.out.println("Connection ERRORE");
         } catch (Exception e) {
-            throw new MyException();
+            throw new DaoException(e);
         }
         return connection;
     }

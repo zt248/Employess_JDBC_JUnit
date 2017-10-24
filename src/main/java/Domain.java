@@ -1,16 +1,15 @@
-import bl.MyException;
+import dao.DaoException;
 import entity.Address;
-import service.AddressService;
+import service.AddressServiceDao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class Domain {
-    public static void main(String[] args) throws MyException {
+    public static void main(String[] args) throws DaoException {
 //        Utill utill = new Utill();
 //        utill.getConnection();
 
-        AddressService addressService = new AddressService();
+        AddressServiceDao addressServiceDao = new AddressServiceDao();
 
         Address address = new Address();
         address.setId(2L);
@@ -21,18 +20,20 @@ public class Domain {
 
 
         try {
-//            addressService.add(address);
-//            addressService.update(new Address(2L,"new Addres","new Cuty","new Street","new PostCode"));
-          //  addressService.remove(address);
-           // System.out.println(addressService.getById(1L));
-            List<Address> addressList = addressService.getAll();
+//            addressServiceDao.add(address);
+//            addressServiceDao.update(new Address(2L,"new Addres","new Cuty","new Street","new PostCode"));
+          //  addressServiceDao.remove(address);
+           // System.out.println(addressServiceDao.getById(1L));
+
+
+            List<Address> addressList = addressServiceDao.getAll();
             for (Address a : addressList) {
                 System.out.println(a);
             }
-            addressService.close();
+            addressServiceDao.close();
 
         } catch (Exception e) {
-            throw new MyException();
+            throw new DaoException();
         }
 
 
