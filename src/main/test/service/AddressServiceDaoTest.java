@@ -9,20 +9,23 @@ import java.util.List;
 
 public class AddressServiceDaoTest {
 
-    Address address;
-    AddressServiceDao addressServiceDao;
 
+
+   
     @Before
     public void beforeClass() throws DaoException {
-        address = new Address(999L, "Test", "Test", "Test", "Test");
-        addressServiceDao = new AddressServiceDao();
+
+        Address address = new Address(999L, "Test", "Test", "Test", "Test");
+
+        AddressServiceDao addressServiceDao = new AddressServiceDao();
     }
 
     @After
     public void afterClass() throws DaoException {
         try {
-            addressServiceDao.remove(address);
-            addressServiceDao.close();
+
+//            addressServiceDao.remove(address);
+//            addressServiceDao.close();
         } catch (Exception e) {
             throw new DaoException(e);
         }
@@ -31,6 +34,10 @@ public class AddressServiceDaoTest {
 
     @Test
     public void add() throws DaoException {
+        Address address = new Address(999L, "Test", "Test", "Test", "Test");
+
+        AddressServiceDao addressServiceDao = new AddressServiceDao();
+
         addressServiceDao.add(address);
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getId(), address.getId());
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getCountry(), address.getCountry());
@@ -42,6 +49,10 @@ public class AddressServiceDaoTest {
 
     @Test
     public void getAll() throws DaoException {
+        Address address = new Address(999L, "Test", "Test", "Test", "Test");
+
+        AddressServiceDao addressServiceDao = new AddressServiceDao();
+
         addressServiceDao.add(address);
         List<Address> list = addressServiceDao.getAll();
         Assert.assertNotNull(list);
@@ -51,6 +62,10 @@ public class AddressServiceDaoTest {
 
     @Test
     public void getById() throws DaoException {
+        Address address = new Address(999L, "Test", "Test", "Test", "Test");
+
+        AddressServiceDao addressServiceDao = new AddressServiceDao();
+
         addressServiceDao.add(address);
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getId(), address.getId());
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getCountry(), address.getCountry());
@@ -62,6 +77,10 @@ public class AddressServiceDaoTest {
 
     @Test
     public void update() throws DaoException {
+        Address address = new Address(999L, "Test", "Test", "Test", "Test");
+
+        AddressServiceDao addressServiceDao = new AddressServiceDao();
+
         addressServiceDao.add(address);
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getId(), address.getId());
         address.setCity("New City");
@@ -79,6 +98,10 @@ public class AddressServiceDaoTest {
 
     @Test (expected = DaoException.class)
     public void remove() throws DaoException {
+        Address address = new Address(999L, "Test", "Test", "Test", "Test");
+
+        AddressServiceDao addressServiceDao = new AddressServiceDao();
+
         addressServiceDao.add(address);
         Assert.assertNotNull(addressServiceDao.getById(address.getId()).getId());
         addressServiceDao.remove(address);

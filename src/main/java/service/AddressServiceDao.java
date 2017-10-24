@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AddressServiceDao extends Utill implements AddressDAO {
+public class AddressServiceDao extends Utill implements AddressDAO  {
 
     private Connection connection = getConnection();
 
@@ -18,9 +18,6 @@ public class AddressServiceDao extends Utill implements AddressDAO {
     private PreparedStatement psGetById = null;
     private PreparedStatement psUpdate = null;
     private PreparedStatement psRemove = null;
-
-    public AddressServiceDao() throws DaoException {
-    }
 
 
 
