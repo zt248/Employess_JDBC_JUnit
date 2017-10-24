@@ -11,24 +11,18 @@ public class AddressServiceDaoTest {
 
 
 
-   
+
     @Before
-    public void beforeClass() throws DaoException {
+    public void beforeClass()  {
 
-        Address address = new Address(999L, "Test", "Test", "Test", "Test");
-
-        AddressServiceDao addressServiceDao = new AddressServiceDao();
     }
 
     @After
     public void afterClass() throws DaoException {
-        try {
-
-//            addressServiceDao.remove(address);
-//            addressServiceDao.close();
-        } catch (Exception e) {
-            throw new DaoException(e);
-        }
+        Address address = new Address(999L, "Test", "Test", "Test", "Test");
+        AddressServiceDao addressServiceDao = new AddressServiceDao();
+        addressServiceDao.remove(address);
+        addressServiceDao.close();
     }
 
 
@@ -45,6 +39,8 @@ public class AddressServiceDaoTest {
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getStreet(), address.getStreet());
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getPostCode(), address.getPostCode());
         addressServiceDao.remove(address);
+
+        addressServiceDao.close();
     }
 
     @Test
@@ -58,6 +54,7 @@ public class AddressServiceDaoTest {
         Assert.assertNotNull(list);
         Assert.assertTrue(list.size() > 0);
         addressServiceDao.remove(address);
+        addressServiceDao.close();
     }
 
     @Test
@@ -73,6 +70,7 @@ public class AddressServiceDaoTest {
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getStreet(), address.getStreet());
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getPostCode(), address.getPostCode());
         addressServiceDao.remove(address);
+        addressServiceDao.close();
     }
 
     @Test
@@ -94,6 +92,7 @@ public class AddressServiceDaoTest {
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getStreet(), address.getStreet());
         Assert.assertEquals(addressServiceDao.getById(address.getId()).getPostCode(), address.getPostCode());
         addressServiceDao.remove(address);
+        addressServiceDao.close();
     }
 
     @Test (expected = DaoException.class)
@@ -106,6 +105,7 @@ public class AddressServiceDaoTest {
         Assert.assertNotNull(addressServiceDao.getById(address.getId()).getId());
         addressServiceDao.remove(address);
         Assert.assertNull(addressServiceDao.getById(address.getId()).getId());
+        addressServiceDao.close();
     }
 
 }
