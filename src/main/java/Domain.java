@@ -1,6 +1,6 @@
 import dao.DaoException;
 import entity.Address;
-import service.AddressServiceDao;
+import dao.impl.AddressImplDao;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class Domain {
 //        Utill utill = new Utill();
 //        utill.getConnection();
 
-        AddressServiceDao addressServiceDao = new AddressServiceDao();
+        AddressImplDao addressImplDao = new AddressImplDao();
 
         Address address = new Address();
         address.setId(2L);
@@ -20,17 +20,17 @@ public class Domain {
 
 
         try {
-//            addressServiceDao.add(address);
-//            addressServiceDao.update(new Address(2L,"new Addres","new Cuty","new Street","new PostCode"));
-          //  addressServiceDao.remove(address);
-           // System.out.println(addressServiceDao.getById(1L));
+//            addressImplDao.add(address);
+//            addressImplDao.update(new Address(2L,"new Addres","new Cuty","new Street","new PostCode"));
+          //  addressImplDao.remove(address);
+           // System.out.println(addressImplDao.getById(1L));
 
 
-            List<Address> addressList = addressServiceDao.getAll();
+            List<Address> addressList = addressImplDao.getAll();
             for (Address a : addressList) {
                 System.out.println(a);
             }
-            addressServiceDao.close();
+            addressImplDao.close();
 
         } catch (Exception e) {
             throw new DaoException();

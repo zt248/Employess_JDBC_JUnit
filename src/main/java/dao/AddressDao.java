@@ -4,7 +4,7 @@ import entity.Address;
 
 import java.util.List;
 
-public interface AddressDAO {
+public interface AddressDao {
 
     //create
     void add(Address address) throws DaoException;

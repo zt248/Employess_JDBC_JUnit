@@ -36,7 +36,7 @@ public class EmplDepa {
 
     @Override
     public String toString() {
-        return "EmplDepaDAO{" +
+        return "EmplDepaDao{" +
                 "employeeId=" + employeeId +
                 ", departmentId=" + departmentId +
                 '}';

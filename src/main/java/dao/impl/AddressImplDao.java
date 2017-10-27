@@ -1,8 +1,8 @@
-package service;
+package dao.impl;
 
 import dao.DaoException;
 import dao.Utill;
-import dao.AddressDAO;
+import dao.AddressDao;
 import entity.Address;
 
 import java.sql.*;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AddressServiceDao extends Utill implements AddressDAO  {
+public class AddressImplDao extends Utill implements AddressDao {
 
     private Connection connection = getConnection();
 

@@ -5,7 +5,7 @@ import entity.Department;
 
 import java.util.List;
 
-public interface DepartmentDAO {
+public interface DepartmentDao {
 
     //create
     void add(Department department);

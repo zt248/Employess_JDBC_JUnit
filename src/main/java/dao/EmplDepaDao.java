@@ -5,7 +5,7 @@ import entity.EmplDepa;
 
 import java.util.List;
 
-public interface EmplDepaDAO {
+public interface EmplDepaDao {
 
     //create
     void add(EmplDepa emplDepa);

@@ -4,7 +4,7 @@ package dao;
 import entity.Employee;
 import java.util.List;
 
-public interface EmployeeDAO {
+public interface EmployeeDao {
 
     //create
     void add(Employee employee);
