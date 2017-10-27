@@ -162,7 +162,6 @@ public class AddressImplDao extends Utill implements AddressDao {
 
         try {
             psRemove.setLong(1, address.getId());
-
             psRemove.executeUpdate();
         } catch (Exception e) {
             throw new DaoException(e);
